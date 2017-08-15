@@ -8,7 +8,8 @@ import Parse from 'parse/node';
 import ParseServer from 'parse-server';
 import ParseDashboard from 'parse-dashboard';
 import graphqlHTTP from 'express-graphql';
-import { buildSchema } from 'graphql';
+import { GraphQLID, GraphQLString } from 'graphql';
+const Schema = require('./graphql/model/Todo/Todo');
 
 const express = require('express');
 const app = express();
@@ -51,33 +52,13 @@ app.engine('html', require('ejs').renderFile);
 app.use('/api/parse-server/v1', parse.app);
 app.use('/parse-dashboard', parseDashboard);
 app.use('/build', express.static(`${__dirname}/../build`));
-
-const schema = buildSchema(`
-  type TodoQueryType {
-    title: String,
-    content: String
-  }
-  type Query {
-    hello: TodoQueryType
-  }
-`);
-
-function runRoot(req) {
-  // hello: () =>
-  req.excute(
-    new Promise(resolve => {
-      new Parse.Query('Todo').find().then(r => resolve(r));
-    })
-  );
-}
-
 app.use(
   '/graphql',
-  graphqlHTTP(async (req, res, graphQLParams) => ({
-    schema,
-    rootValue: await runRoot(req),
-    graphiql: true
-  }))
+  graphqlHTTP({
+    schema: Schema,
+    graphiql: true,
+    pretty: true
+  })
 );
 
 app.get('*', (req, res) => {
