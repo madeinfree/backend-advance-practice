@@ -1,39 +1,29 @@
-import Parse from 'parse/node';
-import R from 'ramda';
-const graphql = require('graphql');
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLBoolean
+} from 'graphql';
 
-const TodoType = new graphql.GraphQLObjectType({
+const TodoType = new GraphQLObjectType({
   name: 'todo',
-  fields: () => {
-    return {
-      id: {
-        type: graphql.GraphQLID
-      },
-      title: {
-        type: graphql.GraphQLString
-      },
-      content: {
-        type: graphql.GraphQLString
-      }
-    };
-  }
+  fields: () => ({
+    id: {
+      type: GraphQLID
+    },
+    objectId: {
+      type: GraphQLString
+    },
+    title: {
+      type: GraphQLString
+    },
+    content: {
+      type: GraphQLString
+    },
+    completed: {
+      type: GraphQLBoolean
+    }
+  })
 });
 
-const queryType = new graphql.GraphQLObjectType({
-  name: 'Query',
-  fields: () => {
-    return {
-      todos: {
-        type: new graphql.GraphQLList(TodoType),
-        resolve: () =>
-          new Promise((resolve, reject) => {
-            new Parse.Query('Todo').find().then(r => resolve(R.map(todo => todo.toJSON())(r)));
-          })
-      }
-    };
-  }
-});
-
-module.exports = new graphql.GraphQLSchema({
-  query: queryType
-});
+export default TodoType;

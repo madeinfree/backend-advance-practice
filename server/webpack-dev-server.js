@@ -9,7 +9,7 @@ import ParseServer from 'parse-server';
 import ParseDashboard from 'parse-dashboard';
 import graphqlHTTP from 'express-graphql';
 import { GraphQLID, GraphQLString } from 'graphql';
-const Schema = require('./graphql/model/Todo/Todo');
+const Schema = require('./graphql/model/Query/Query').default;
 
 const express = require('express');
 const app = express();
@@ -22,7 +22,11 @@ const parse = new ParseServer({
   appId: 'react-basic-starter-dev',
   masterKey: 'MasterKey'
 });
-Parse.initialize(process.env.PARSE_SERVER_APP_ID, process.env.PARSE_SERVER_JAVASCRIPT_KEY, process.env.PARSE_SERVER_MASTER_KEY);
+Parse.initialize(
+  process.env.PARSE_SERVER_APP_ID,
+  process.env.PARSE_SERVER_JAVASCRIPT_KEY,
+  process.env.PARSE_SERVER_MASTER_KEY
+);
 Parse.serverURL = process.env.PARSE_SERVER_URL;
 
 const allowInsecureHTTP = true;
@@ -73,5 +77,8 @@ app.get('*', (req, res) => {
 });
 
 app.listen(process.env.APP_PORT, () => {
-  console.log(`Server listen on port ${process.env.APP_PORT}, NODE_ENV is ${process.env.NODE_ENV}`);
+  console.log(
+    `Server listen on port ${process.env.APP_PORT}, NODE_ENV is ${process.env
+      .NODE_ENV}`
+  );
 });
