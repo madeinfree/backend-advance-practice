@@ -1,0 +1,13 @@
+schema {
+  query: Root
+}
+
+type Root {
+  todos: [TodoType]
+}
+
+type TodoType {
+  objectId: String
+  title: String
+  content: String
+}

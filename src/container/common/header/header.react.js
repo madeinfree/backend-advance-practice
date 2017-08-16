@@ -1,12 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-import {
-  Navbar
-} from 'react-bootstrap'
+import { Navbar } from 'react-bootstrap';
 
-const Header = () => (
+const Header = () =>
   <div>
     <Navbar inverse>
       <Navbar.Header>
@@ -20,11 +18,13 @@ const Header = () => (
           <Link to='/home'>Home</Link>
         </Navbar.Brand>
         <Navbar.Brand>
+          <Link to='/todo'>Todo</Link>
+        </Navbar.Brand>
+        <Navbar.Brand>
           <Link to='/example'>Example</Link>
         </Navbar.Brand>
       </Navbar.Collapse>
     </Navbar>
-  </div>
-)
+  </div>;
 
-export default Header
+export default Header;

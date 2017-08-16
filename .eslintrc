@@ -63,7 +63,7 @@
     "id-length": 0,
     "no-unused-expressions": 0,
     "no-param-reassign": 0,
-    "max-len": ["error", 80,
+    "max-len": ["error", 60,
     {
       "ignoreUrls": true,
       "ignoreComments": true

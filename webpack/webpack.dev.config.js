@@ -4,7 +4,7 @@ const webpack = require('webpack');
 require('dotenv').config();
 
 module.exports = {
-  entry: [ `webpack-dev-server/client?http://0.0.0.0:${process.env.APP_PORT}`, 'webpack/hot/only-dev-server', 'react-dev-utils/webpackHotDevClient', './src/index.react.js' ],
+  entry: [ './src/index.react.js' ],
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: 'bundle.js',
@@ -27,7 +27,8 @@ module.exports = {
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&minetype=application/font-woff'
+        loader:
+          'url-loader?limit=10000&minetype=application/font-woff'
       },
       {
         test: /\.(ttf|eot|svg|jpe?g|png|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -45,7 +46,9 @@ module.exports = {
       filename: 'vendor.js',
       minChunks: module => {
         const context = module.context;
-        return context && context.indexOf('node_modules') !== -1;
+        return (
+          context && context.indexOf('node_modules') !== -1
+        );
       }
     })
   ]
