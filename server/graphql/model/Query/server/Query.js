@@ -6,6 +6,7 @@ import {
 } from '../../Todo/server/Todo';
 import {
   GraphQLObjectType,
+  GraphQLString,
   GraphQLList,
   GraphQLSchema
 } from 'graphql';
@@ -27,10 +28,15 @@ const queryType = new GraphQLObjectType({
     },
     todo: {
       type: TodoType,
-      resolve: () =>
+      args: {
+        objectId: {
+          type: GraphQLString
+        }
+      },
+      resolve: (obj, { objectId }) =>
         new Promise((resolve, reject) => {
           new Parse.Query('Todo')
-            .get('CEiHBX3t3p')
+            .get(objectId)
             .then(r => resolve(r.toJSON()))
             .catch(err => reject(err));
         })

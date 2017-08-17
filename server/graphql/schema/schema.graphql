@@ -5,6 +5,11 @@ schema {
 
 type queryRoot {
   todos: [TodoType]
+  todo(objectId: String): TodoType
+}
+
+input TodoInputType {
+  objectId: String
 }
 
 type TodoType {

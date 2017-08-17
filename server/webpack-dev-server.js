@@ -61,6 +61,12 @@ app.use(
   graphqlHTTP({
     schema: Schema,
     graphiql: true,
+    rootValue: {
+      todo(arg) {
+        console.log(arg);
+        return arg;
+      }
+    },
     pretty: true
   })
 );

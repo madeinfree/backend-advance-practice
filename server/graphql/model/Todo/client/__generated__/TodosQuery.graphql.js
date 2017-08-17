@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ac616e497d9765b447fa1569f243c910
+ * @relayHash 18157ee44eefa5852fd7ee878442c968
  */
 
 /* eslint-disable */
@@ -9,22 +9,20 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type TodoQueryResponse = {|
-  +todo: ?{|
+export type TodosQueryResponse = {|
+  +todos: ?$ReadOnlyArray<?{|
     +objectId: ?string;
     +title: ?string;
     +content: ?string;
     +completed: ?boolean;
-  |};
+  |}>;
 |};
 */
 
 
 /*
-query TodoQuery(
-  $searchId: String
-) {
-  todo(objectId: $searchId) {
+query TodosQuery {
+  todos {
     objectId
     title
     content
@@ -35,32 +33,18 @@ query TodoQuery(
 
 const batch /*: ConcreteBatch*/ = {
   "fragment": {
-    "argumentDefinitions": [
-      {
-        "kind": "LocalArgument",
-        "name": "searchId",
-        "type": "String",
-        "defaultValue": null
-      }
-    ],
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "TodoQuery",
+    "name": "TodosQuery",
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "objectId",
-            "variableName": "searchId",
-            "type": "String"
-          }
-        ],
+        "args": null,
         "concreteType": "TodoType",
-        "name": "todo",
-        "plural": false,
+        "name": "todos",
+        "plural": true,
         "selections": [
           {
             "kind": "ScalarField",
@@ -99,34 +83,20 @@ const batch /*: ConcreteBatch*/ = {
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "TodoQuery",
+  "name": "TodosQuery",
   "query": {
-    "argumentDefinitions": [
-      {
-        "kind": "LocalArgument",
-        "name": "searchId",
-        "type": "String",
-        "defaultValue": null
-      }
-    ],
+    "argumentDefinitions": [],
     "kind": "Root",
-    "name": "TodoQuery",
+    "name": "TodosQuery",
     "operation": "query",
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "objectId",
-            "variableName": "searchId",
-            "type": "String"
-          }
-        ],
+        "args": null,
         "concreteType": "TodoType",
-        "name": "todo",
-        "plural": false,
+        "name": "todos",
+        "plural": true,
         "selections": [
           {
             "kind": "ScalarField",
@@ -161,7 +131,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query TodoQuery(\n  $searchId: String\n) {\n  todo(objectId: $searchId) {\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
+  "text": "query TodosQuery {\n  todos {\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
 };
 
 module.exports = batch;
