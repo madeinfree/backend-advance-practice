@@ -21,7 +21,9 @@
     "type": "git",
     "url": "git+https://github.com/madeinfree/react-basic-starter.git"
   },
-  "keywords": ["react"],
+  "keywords": [
+    "react"
+  ],
   "author": "Whien_Liou",
   "license": "MIT",
   "bugs": {
@@ -46,6 +48,7 @@
     "react-redux": "^5.0.5",
     "react-relay": "^1.1.0",
     "react-router-dom": "^4.1.2",
+    "recompose": "^0.25.0",
     "redux": "^3.7.2",
     "styled-components": "^2.1.1"
   },

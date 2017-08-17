@@ -1,7 +1,7 @@
 import { graphql } from 'react-relay';
 graphql`
-  query TodoQuery($searchId: String) {
-    todo(objectId: $searchId) {
+  query TodoQuery($objectId: String) {
+    todo(objectId: $objectId) {
       objectId
       title
       content

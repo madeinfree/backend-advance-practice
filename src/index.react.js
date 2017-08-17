@@ -35,14 +35,15 @@ import './lib/bootstrap/dist/bootstrap.min.css';
 const store = configureStore();
 
 // Relay Client
-const fetchQuery = ({ text }) =>
+const fetchQuery = ({ text }, variables) =>
   fetch('/graphql', {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
     },
     body: JSON.stringify({
-      query: text
+      query: text,
+      variables
     })
   }).then(response => response.json());
 const source = new RecordSource();
@@ -62,13 +63,14 @@ const App = () =>
         <Route path='/home' component={ Home } />
         <QueryRenderer
           environment={ environment }
-          query={ require('../server/graphql/model/Todo/client/__generated__/TodoQuery.graphql') }
+          query={ require('../server/graphql/model/Todo/client/__generated__/TodosQuery.graphql') }
           render={ queryProps =>
             <Route
               path='/todo'
               component={ props =>
                 <Todo
                   queryResult={ queryProps }
+                  environment={ environment }
                   { ...props } /> } /> } />
         <Route path='/example' component={ Example } />
         <Footer />

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ac616e497d9765b447fa1569f243c910
+ * @relayHash 8e4e3135d96589e88c04987674f9c4cc
  */
 
 /* eslint-disable */
@@ -22,9 +22,9 @@ export type TodoQueryResponse = {|
 
 /*
 query TodoQuery(
-  $searchId: String
+  $objectId: String
 ) {
-  todo(objectId: $searchId) {
+  todo(objectId: $objectId) {
     objectId
     title
     content
@@ -38,7 +38,7 @@ const batch /*: ConcreteBatch*/ = {
     "argumentDefinitions": [
       {
         "kind": "LocalArgument",
-        "name": "searchId",
+        "name": "objectId",
         "type": "String",
         "defaultValue": null
       }
@@ -54,7 +54,7 @@ const batch /*: ConcreteBatch*/ = {
           {
             "kind": "Variable",
             "name": "objectId",
-            "variableName": "searchId",
+            "variableName": "objectId",
             "type": "String"
           }
         ],
@@ -104,7 +104,7 @@ const batch /*: ConcreteBatch*/ = {
     "argumentDefinitions": [
       {
         "kind": "LocalArgument",
-        "name": "searchId",
+        "name": "objectId",
         "type": "String",
         "defaultValue": null
       }
@@ -120,7 +120,7 @@ const batch /*: ConcreteBatch*/ = {
           {
             "kind": "Variable",
             "name": "objectId",
-            "variableName": "searchId",
+            "variableName": "objectId",
             "type": "String"
           }
         ],
@@ -161,7 +161,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query TodoQuery(\n  $searchId: String\n) {\n  todo(objectId: $searchId) {\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
+  "text": "query TodoQuery(\n  $objectId: String\n) {\n  todo(objectId: $objectId) {\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
 };
 
 module.exports = batch;
