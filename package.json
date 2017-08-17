@@ -11,7 +11,7 @@
     "build:dev": "./node_modules/webpack/bin/webpack.js --color --watch --config ./webpack/webpack.dev.config.js",
     "start:prod": "yarn clear && ./node_modules/webpack/bin/webpack.js --config ./webpack/webpack.production.config.js && yarn server",
     "server": "node ./server/index.js",
-    "relay": "relay-compiler --src ./server/graphql --schema ./server/graphql/schema/schema.graphql",
+    "relay": "relay-compiler --src ./server/graphql/model/ --schema ./server/graphql/schema/schema.graphql",
     "clear": "rimraf ./build/*"
   },
   "jest": {

@@ -9,7 +9,7 @@ import ParseServer from 'parse-server';
 import ParseDashboard from 'parse-dashboard';
 import graphqlHTTP from 'express-graphql';
 import { GraphQLID, GraphQLString } from 'graphql';
-const Schema = require('./graphql/model/Query/Query').default;
+import Schema from './graphql/model/Query/server/Query';
 
 const express = require('express');
 const app = express();
@@ -78,7 +78,7 @@ app.get('*', (req, res) => {
 
 app.listen(process.env.APP_PORT, () => {
   console.log(
-    `Server listen on port ${process.env.APP_PORT}, NODE_ENV is ${process.env
-      .NODE_ENV}`
+    `Server listen on port ${process.env
+      .APP_PORT}, NODE_ENV is ${process.env.NODE_ENV}`
   );
 });

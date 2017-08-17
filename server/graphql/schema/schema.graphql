@@ -1,8 +1,9 @@
 schema {
-  query: Root
+  query: queryRoot
+  mutation: mutationRoot
 }
 
-type Root {
+type queryRoot {
   todos: [TodoType]
 }
 
@@ -11,4 +12,12 @@ type TodoType {
   title: String
   content: String
   completed: Boolean
+}
+
+type mutationRoot {
+  deleteTodo: [DeleteTodoType]
+}
+
+type DeleteTodoType {
+  objectId: String
 }
