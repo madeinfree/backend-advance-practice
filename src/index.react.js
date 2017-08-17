@@ -9,7 +9,8 @@ import {
   RecordSource,
   Store
 } from 'relay-runtime';
-import { QueryRenderer, graphql } from 'react-relay';
+import { QueryRenderer } from 'react-relay';
+const indexQuery = require('./__generated__/indexQuery.graphql'); /* eslint max-len: 0 */
 
 // React Router
 import {
@@ -21,6 +22,7 @@ import Header from './container/common/header/header.react';
 import Footer from './container/common/footer/footer.react';
 import Welcome from './container/welcome/welcome.react';
 import Home from './container/home/home.react';
+import Todo from './container/todo/todo.react';
 import Example from './container/example/example.react';
 
 // Redux
@@ -55,31 +57,16 @@ const App = () =>
     <Router>
       <div>
         <Header />
-        <QueryRenderer
-          environment={ environment }
-          query={ graphql`
-            query indexQuery {
-              todos {
-                objectId
-                title
-                content
-              }
-            }
-          ` }
-          render={ ({ props }) =>
-            <div>
-              { props && props.todos
-                ? props.todos.map(todo =>
-                    <div key={ todo.objectId }>
-                      ObjectId => { todo.objectId } { '  ' }
-                      title => { todo.title } { '  ' }
-                      content => { todo.content } { '  ' }
-                    </div>
-                  )
-                : 'Loading...' }
-            </div> } />
         <Route exact path='/' component={ Welcome } />
         <Route path='/home' component={ Home } />
+        <QueryRenderer
+          environment={ environment }
+          query={ indexQuery }
+          render={ queryProps =>
+            <Route
+              path='/todo'
+              component={ props =>
+                <Todo queryResul={ queryProps } { ...props } /> } /> } />
         <Route path='/example' component={ Example } />
         <Footer />
       </div>
