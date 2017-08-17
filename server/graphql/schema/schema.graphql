@@ -10,4 +10,5 @@ type TodoType {
   objectId: String
   title: String
   content: String
+  completed: Boolean
 }

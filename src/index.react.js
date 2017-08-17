@@ -1,3 +1,5 @@
+/* eslint global-require: 0 */
+/* eslint max-len: 0 */
 // React core
 import React from 'react';
 import { render } from 'react-dom';
@@ -10,7 +12,6 @@ import {
   Store
 } from 'relay-runtime';
 import { QueryRenderer } from 'react-relay';
-const indexQuery = require('./__generated__/indexQuery.graphql'); /* eslint max-len: 0 */
 
 // React Router
 import {
@@ -61,12 +62,14 @@ const App = () =>
         <Route path='/home' component={ Home } />
         <QueryRenderer
           environment={ environment }
-          query={ indexQuery }
+          query={ require('../server/graphql/model/Todo/__generated__/TodoQuery.graphql') }
           render={ queryProps =>
             <Route
               path='/todo'
               component={ props =>
-                <Todo queryResul={ queryProps } { ...props } /> } /> } />
+                <Todo
+                  queryResult={ queryProps }
+                  { ...props } /> } /> } />
         <Route path='/example' component={ Example } />
         <Footer />
       </div>
