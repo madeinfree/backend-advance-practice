@@ -11,6 +11,11 @@ import graphqlHTTP from 'express-graphql';
 import { GraphQLID, GraphQLString } from 'graphql';
 import Schema from './graphql/model/Query/server/Query';
 
+/* cluster */
+import cluster from 'cluster'
+import { cpus } from 'os'
+const numCPUs = cpus().length
+
 const express = require('express');
 const app = express();
 require('dotenv').config();
@@ -82,9 +87,22 @@ app.get('*', (req, res) => {
   );
 });
 
-app.listen(process.env.APP_PORT, () => {
-  console.log(
-    `Server listen on port ${process.env
-      .APP_PORT}, NODE_ENV is ${process.env.NODE_ENV}`
-  );
-});
+if (cluster.isMaster) {
+  console.log('master start...')
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork()
+  }
+  cluster.on('listening', (worker, address) => {
+    console.log(`Listening: worker ${worker.process.pid}, address ${address.address}:${address.port}`)
+  })
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else if (cluster.isWorker) {
+  app.listen(process.env.APP_PORT, () => {
+    console.log(
+      `Server listen on port ${process.env
+        .APP_PORT}, NODE_ENV is ${process.env.NODE_ENV}`
+    );
+  });
+}
