@@ -61,13 +61,13 @@ const App = () =>
         <Header />
         <Route exact path='/' component={ Welcome } />
         <Route path='/home' component={ Home } />
-        <QueryRenderer
-          environment={ environment }
-          query={ require('../server/graphql/model/Todo/client/__generated__/TodosQuery.graphql') }
-          render={ queryProps =>
-            <Route
-              path='/todo'
-              component={ props =>
+        <Route
+          path='/todo'
+          component={ props =>
+            <QueryRenderer
+              environment={ environment }
+              query={ require('../server/graphql/model/Todo/client/__generated__/TodosQuery.graphql') }
+              render={ queryProps =>
                 <Todo
                   queryResult={ queryProps }
                   environment={ environment }

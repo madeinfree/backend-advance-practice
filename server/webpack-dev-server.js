@@ -9,12 +9,12 @@ import ParseServer from 'parse-server';
 import ParseDashboard from 'parse-dashboard';
 import graphqlHTTP from 'express-graphql';
 import { GraphQLID, GraphQLString } from 'graphql';
-import Schema from './graphql/model/Query/server/Query';
+import Schema from './graphql/model/Query/server/Root';
 
 /* cluster */
-import cluster from 'cluster'
-import { cpus } from 'os'
-const numCPUs = cpus().length
+import cluster from 'cluster';
+import { cpus } from 'os';
+const numCPUs = cpus().length;
 
 const express = require('express');
 const app = express();
@@ -88,13 +88,16 @@ app.get('*', (req, res) => {
 });
 
 if (cluster.isMaster) {
-  console.log('master start...')
+  console.log('master start...');
   for (let i = 0; i < numCPUs; i++) {
-    cluster.fork()
+    cluster.fork();
   }
   cluster.on('listening', (worker, address) => {
-    console.log(`Listening: worker ${worker.process.pid}, address ${address.address}:${address.port}`)
-  })
+    console.log(
+      `Listening: worker ${worker.process
+        .pid}, address ${address.address}:${address.port}`
+    );
+  });
   cluster.on('exit', (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`);
   });

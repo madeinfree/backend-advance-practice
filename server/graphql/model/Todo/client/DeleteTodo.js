@@ -1,7 +1,7 @@
 import { graphql } from 'react-relay';
 graphql`
-  mutation DeleteTodoMutation {
-    deleteTodo {
+  mutation DeleteTodoMutation($objectId: String) {
+    deleteTodo(objectId: $objectId) {
       objectId
     }
   }

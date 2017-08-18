@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 05cab3a232c5a50561f319fde2ad0816
+ * @relayHash fb19472e722750fafab25e79e5903cfb
  */
 
 /* eslint-disable */
@@ -9,21 +9,30 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type TodosQueryResponse = {|
-  +todos: ?$ReadOnlyArray<?{|
+export type CreateTodoMutationVariables = {|
+  input?: ?{
+    title: string;
+    content: string;
+  };
+|};
+
+export type CreateTodoMutationResponse = {|
+  +createTodo: ?{|
     +id: ?string;
     +objectId: ?string;
     +title: ?string;
     +content: ?string;
     +completed: ?boolean;
-  |}>;
+  |};
 |};
 */
 
 
 /*
-query TodosQuery {
-  todos {
+mutation CreateTodoMutation(
+  $input: TodoInputType
+) {
+  createTodo(input: $input) {
     id
     objectId
     title
@@ -35,18 +44,32 @@ query TodosQuery {
 
 const batch /*: ConcreteBatch*/ = {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+      {
+        "kind": "LocalArgument",
+        "name": "input",
+        "type": "TodoInputType",
+        "defaultValue": null
+      }
+    ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "TodosQuery",
+    "name": "CreateTodoMutation",
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "input",
+            "variableName": "input",
+            "type": "TodoInputType"
+          }
+        ],
         "concreteType": "TodoType",
-        "name": "todos",
-        "plural": true,
+        "name": "createTodo",
+        "plural": false,
         "selections": [
           {
             "kind": "ScalarField",
@@ -87,25 +110,39 @@ const batch /*: ConcreteBatch*/ = {
         "storageKey": null
       }
     ],
-    "type": "queryRoot"
+    "type": "mutationRoot"
   },
   "id": null,
   "kind": "Batch",
   "metadata": {},
-  "name": "TodosQuery",
+  "name": "CreateTodoMutation",
   "query": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+      {
+        "kind": "LocalArgument",
+        "name": "input",
+        "type": "TodoInputType",
+        "defaultValue": null
+      }
+    ],
     "kind": "Root",
-    "name": "TodosQuery",
-    "operation": "query",
+    "name": "CreateTodoMutation",
+    "operation": "mutation",
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "input",
+            "variableName": "input",
+            "type": "TodoInputType"
+          }
+        ],
         "concreteType": "TodoType",
-        "name": "todos",
-        "plural": true,
+        "name": "createTodo",
+        "plural": false,
         "selections": [
           {
             "kind": "ScalarField",
@@ -147,7 +184,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query TodosQuery {\n  todos {\n    id\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
+  "text": "mutation CreateTodoMutation(\n  $input: TodoInputType\n) {\n  createTodo(input: $input) {\n    id\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
 };
 
 module.exports = batch;

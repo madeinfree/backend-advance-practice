@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 85bb93d6d93690110eeb840f4860ed54
+ * @relayHash f229f67c37e2a69d540ab562f5024fce
  */
 
 /* eslint-disable */
@@ -9,19 +9,23 @@
 
 /*::
 import type {ConcreteBatch} from 'relay-runtime';
-export type DeleteTodoMutationVariables = {| |};
+export type DeleteTodoMutationVariables = {|
+  objectId?: ?string;
+|};
 
 export type DeleteTodoMutationResponse = {|
-  +deleteTodo: ?$ReadOnlyArray<?{|
+  +deleteTodo: ?{|
     +objectId: ?string;
-  |}>;
+  |};
 |};
 */
 
 
 /*
-mutation DeleteTodoMutation {
-  deleteTodo {
+mutation DeleteTodoMutation(
+  $objectId: String
+) {
+  deleteTodo(objectId: $objectId) {
     objectId
   }
 }
@@ -29,7 +33,14 @@ mutation DeleteTodoMutation {
 
 const batch /*: ConcreteBatch*/ = {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+      {
+        "kind": "LocalArgument",
+        "name": "objectId",
+        "type": "String",
+        "defaultValue": null
+      }
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "DeleteTodoMutation",
@@ -37,10 +48,17 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "objectId",
+            "variableName": "objectId",
+            "type": "String"
+          }
+        ],
         "concreteType": "DeleteTodoType",
         "name": "deleteTodo",
-        "plural": true,
+        "plural": false,
         "selections": [
           {
             "kind": "ScalarField",
@@ -60,7 +78,14 @@ const batch /*: ConcreteBatch*/ = {
   "metadata": {},
   "name": "DeleteTodoMutation",
   "query": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": [
+      {
+        "kind": "LocalArgument",
+        "name": "objectId",
+        "type": "String",
+        "defaultValue": null
+      }
+    ],
     "kind": "Root",
     "name": "DeleteTodoMutation",
     "operation": "mutation",
@@ -68,10 +93,17 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "objectId",
+            "variableName": "objectId",
+            "type": "String"
+          }
+        ],
         "concreteType": "DeleteTodoType",
         "name": "deleteTodo",
-        "plural": true,
+        "plural": false,
         "selections": [
           {
             "kind": "ScalarField",
@@ -85,7 +117,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation DeleteTodoMutation {\n  deleteTodo {\n    objectId\n  }\n}\n"
+  "text": "mutation DeleteTodoMutation(\n  $objectId: String\n) {\n  deleteTodo(objectId: $objectId) {\n    objectId\n  }\n}\n"
 };
 
 module.exports = batch;

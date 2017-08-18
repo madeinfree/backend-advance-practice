@@ -6,15 +6,19 @@ import React from 'react';
 import R from 'ramda';
 import { Table, FormControl } from 'react-bootstrap';
 import { compose, withStateHandlers } from 'recompose';
-
 import { QueryRenderer } from 'react-relay';
+
+import TodoRemoveButton from './todoRemoveButton.react';
 
 const queryResultNotNull = R.compose(
   R.not,
   R.isNil,
   R.path([ 'props' ])
 );
-const getQueryResultTodos = R.path([ 'props', 'todos' ]);
+const getQueryResultTodos = R.compose(
+  R.filter(todo => todo),
+  R.path([ 'props', 'todos' ])
+);
 const getQueryResultTodo = R.path([ 'props', 'todo' ]);
 const getObjectId = R.path([ 'objectId' ]);
 const getTitle = R.path([ 'title' ]);
@@ -29,7 +33,11 @@ const getCompleted = R.compose(
 );
 
 const SingleTableBody = (
-  { queryResult } /* eslint no-confusing-arrow: 0 */
+  {
+    queryResult,
+    environment,
+    handleClearSearchText
+  } /* eslint no-confusing-arrow: 0 */
 ) =>
   queryResultNotNull(queryResult)
     ? <tbody
@@ -47,7 +55,12 @@ const SingleTableBody = (
           <td>
             { getCompleted(getQueryResultTodo(queryResult)) }
           </td>
-          <td>刪除</td>
+          <td>
+            <TodoRemoveButton
+              environment={ environment }
+              handleClearSearchText={ handleClearSearchText }
+              todo={ getQueryResultTodo(queryResult) } />
+          </td>
         </tr>
       </tbody>
     : null;
@@ -55,6 +68,7 @@ const SingleTableBody = (
 const Todo = ({
   queryResult,
   changeSearchText,
+  clearSearchText,
   searchText,
   environment
 }) =>
@@ -82,8 +96,11 @@ const Todo = ({
           variables={ {
             objectId: searchText
           } }
-          render={ data =>
-              <SingleTableBody queryResult={ data } /> } />
+          render={ todo =>
+              <SingleTableBody
+                queryResult={ todo }
+                environment={ environment }
+                handleClearSearchText={ clearSearchText } /> } />
         : queryResultNotNull(queryResult)
           ? R.map(todo =>
               <tbody key={ getObjectId(todo) }>
@@ -100,7 +117,19 @@ const Todo = ({
                   <td>
                     { getCompleted(todo) }
                   </td>
-                  <td>刪除</td>
+                  <td>
+                    <TodoRemoveButton
+                      environment={ environment }
+                      handleClearSearchText={
+                        clearSearchText
+                      }
+                      todo={ todo } />
+                    { R.ifElse(
+                      R.equals('進行中'),
+                      R.always('完成'),
+                      R.always('')
+                    )(getCompleted(todo)) }
+                  </td>
                 </tr>
               </tbody>
             )(getQueryResultTodos(queryResult))
@@ -113,7 +142,8 @@ export default compose(
     {
       changeSearchText: () => e => ({
         searchText: e.target.value
-      })
+      }),
+      clearSearchText: () => () => ({ searchText: '' })
     }
   )
 )(Todo);

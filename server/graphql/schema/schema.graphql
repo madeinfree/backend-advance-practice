@@ -8,19 +8,22 @@ type queryRoot {
   todo(objectId: String): TodoType
 }
 
-input TodoInputType {
-  objectId: String
-}
-
 type TodoType {
+  id: ID
   objectId: String
   title: String
   content: String
   completed: Boolean
 }
 
+input TodoInputType {
+  title: String!
+  content: String!
+}
+
 type mutationRoot {
-  deleteTodo: [DeleteTodoType]
+  deleteTodo(objectId: String): DeleteTodoType
+  createTodo(input: TodoInputType): TodoType
 }
 
 type DeleteTodoType {

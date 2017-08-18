@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 8e4e3135d96589e88c04987674f9c4cc
+ * @relayHash 24ebd5b7b0da2d0bd682b1c64ff14879
  */
 
 /* eslint-disable */
@@ -11,6 +11,7 @@
 import type {ConcreteBatch} from 'relay-runtime';
 export type TodoQueryResponse = {|
   +todo: ?{|
+    +id: ?string;
     +objectId: ?string;
     +title: ?string;
     +content: ?string;
@@ -25,6 +26,7 @@ query TodoQuery(
   $objectId: String
 ) {
   todo(objectId: $objectId) {
+    id
     objectId
     title
     content
@@ -62,6 +64,13 @@ const batch /*: ConcreteBatch*/ = {
         "name": "todo",
         "plural": false,
         "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
+            "name": "id",
+            "storageKey": null
+          },
           {
             "kind": "ScalarField",
             "alias": null,
@@ -132,6 +141,13 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "ScalarField",
             "alias": null,
             "args": null,
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "args": null,
             "name": "objectId",
             "storageKey": null
           },
@@ -161,7 +177,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query TodoQuery(\n  $objectId: String\n) {\n  todo(objectId: $objectId) {\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
+  "text": "query TodoQuery(\n  $objectId: String\n) {\n  todo(objectId: $objectId) {\n    id\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
 };
 
 module.exports = batch;
