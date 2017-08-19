@@ -39,6 +39,15 @@ const CreateTodoType = new GraphQLInputObjectType({
   })
 });
 
+const CompletedTodoType = new GraphQLObjectType({
+  name: 'CompletedTodoType',
+  fields: () => ({
+    todo: {
+      type: TodoType
+    }
+  })
+});
+
 const DeleteTodoType = new GraphQLObjectType({
   name: 'DeleteTodoType',
   fields: () => ({
@@ -48,4 +57,9 @@ const DeleteTodoType = new GraphQLObjectType({
   })
 });
 
-export { TodoType, DeleteTodoType, CreateTodoType };
+export {
+  TodoType,
+  DeleteTodoType,
+  CompletedTodoType,
+  CreateTodoType
+};

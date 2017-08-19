@@ -124,6 +124,8 @@ const Todo = ({
                   </td>
                   <td>
                     <TodoCompletedButton
+                      environment={ environment }
+                      objectId={ getObjectId(todo) }
                       completed={ getCompleted(todo) } />
                     <TodoRemoveButton
                       environment={ environment }

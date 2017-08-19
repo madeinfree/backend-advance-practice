@@ -16,6 +16,10 @@ type TodoType {
   completed: Boolean
 }
 
+type CompletedTodoType {
+  todo: TodoType
+}
+
 input CreateTodoType {
   title: String!
   content: String!
@@ -23,6 +27,7 @@ input CreateTodoType {
 
 type mutationRoot {
   createTodo(input: CreateTodoType): TodoType
+  completedTodo(objectId: String): CompletedTodoType
   deleteTodo(objectId: String): DeleteTodoType
 }
 

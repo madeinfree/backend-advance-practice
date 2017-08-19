@@ -4,8 +4,9 @@ import Parse from 'parse/node';
 import R from 'ramda';
 import {
   TodoType,
-  DeleteTodoType,
-  CreateTodoType
+  CreateTodoType,
+  CompletedTodoType,
+  DeleteTodoType
 } from '../../Todo/server/Todo';
 import {
   GraphQLObjectType,
@@ -88,6 +89,34 @@ const mutationType = new GraphQLObjectType({
                 })(todo.toJSON())
               )
             )
+            .catch(err => reject(err));
+        })
+    },
+    completedTodo: {
+      type: CompletedTodoType,
+      args: {
+        objectId: {
+          type: GraphQLString
+        }
+      },
+      description: 'Completed Todo',
+      resolve: (value, { objectId }) =>
+        new Promise((resolve, reject) => {
+          new Parse.Query('Todo')
+            .get(objectId)
+            .then(todoObj => {
+              todoObj.set('completed', true);
+              todoObj.save().then(todo => {
+                resolve({
+                  todo: R.merge({
+                    id: R.path(
+                      [ 'objectId' ],
+                      todo.toJSON()
+                    ) /* max-len: 0 */
+                  })(todo.toJSON())
+                });
+              });
+            })
             .catch(err => reject(err));
         })
     },
