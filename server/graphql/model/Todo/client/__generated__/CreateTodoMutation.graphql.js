@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash fb19472e722750fafab25e79e5903cfb
+ * @relayHash 5840f5fb765297deb1304400ebebc204
  */
 
 /* eslint-disable */
@@ -30,7 +30,7 @@ export type CreateTodoMutationResponse = {|
 
 /*
 mutation CreateTodoMutation(
-  $input: TodoInputType
+  $input: CreateTodoType
 ) {
   createTodo(input: $input) {
     id
@@ -48,7 +48,7 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "TodoInputType",
+        "type": "CreateTodoType",
         "defaultValue": null
       }
     ],
@@ -64,7 +64,7 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "TodoInputType"
+            "type": "CreateTodoType"
           }
         ],
         "concreteType": "TodoType",
@@ -121,7 +121,7 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LocalArgument",
         "name": "input",
-        "type": "TodoInputType",
+        "type": "CreateTodoType",
         "defaultValue": null
       }
     ],
@@ -137,7 +137,7 @@ const batch /*: ConcreteBatch*/ = {
             "kind": "Variable",
             "name": "input",
             "variableName": "input",
-            "type": "TodoInputType"
+            "type": "CreateTodoType"
           }
         ],
         "concreteType": "TodoType",
@@ -184,7 +184,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "mutation CreateTodoMutation(\n  $input: TodoInputType\n) {\n  createTodo(input: $input) {\n    id\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
+  "text": "mutation CreateTodoMutation(\n  $input: CreateTodoType\n) {\n  createTodo(input: $input) {\n    id\n    objectId\n    title\n    content\n    completed\n  }\n}\n"
 };
 
 module.exports = batch;

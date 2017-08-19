@@ -4,7 +4,8 @@ import Parse from 'parse/node';
 import R from 'ramda';
 import {
   TodoType,
-  DeleteTodoType
+  DeleteTodoType,
+  CreateTodoType
 } from '../../Todo/server/Todo';
 import {
   GraphQLObjectType,
@@ -58,6 +59,38 @@ const queryType = new GraphQLObjectType({
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
+    createTodo: {
+      type: TodoType,
+      args: {
+        input: {
+          type: CreateTodoType
+        }
+      },
+      description: 'Create Todo',
+      resolve: (
+        value,
+        { title = 'Running', content = 'School' }
+      ) =>
+        new Promise((resolve, reject) => {
+          new Parse.Object('Todo')
+            .save({
+              title,
+              content,
+              completed: false
+            })
+            .then(todo =>
+              resolve(
+                R.merge({
+                  id: R.path(
+                    [ 'objectId' ],
+                    todo.toJSON()
+                  ) /* max-len: 0 */
+                })(todo.toJSON())
+              )
+            )
+            .catch(err => reject(err));
+        })
+    },
     deleteTodo: {
       type: DeleteTodoType,
       args: {

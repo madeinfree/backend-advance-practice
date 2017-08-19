@@ -1,6 +1,6 @@
-import { graphql } from 'react-relay'
+import { graphql } from 'react-relay';
 graphql`
-  mutation CreateTodoMutation($input: TodoInputType) {
+  mutation CreateTodoMutation($input: CreateTodoType) {
     createTodo(input: $input) {
       id
       objectId
@@ -9,4 +9,4 @@ graphql`
       completed
     }
   }
-`
+`;

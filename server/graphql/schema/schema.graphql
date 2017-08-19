@@ -16,14 +16,14 @@ type TodoType {
   completed: Boolean
 }
 
-input TodoInputType {
+input CreateTodoType {
   title: String!
   content: String!
 }
 
 type mutationRoot {
+  createTodo(input: CreateTodoType): TodoType
   deleteTodo(objectId: String): DeleteTodoType
-  createTodo(input: TodoInputType): TodoType
 }
 
 type DeleteTodoType {

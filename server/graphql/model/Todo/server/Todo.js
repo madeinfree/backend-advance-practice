@@ -1,4 +1,5 @@
 import {
+  GraphQLInputObjectType,
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
@@ -26,6 +27,18 @@ const TodoType = new GraphQLObjectType({
   })
 });
 
+const CreateTodoType = new GraphQLInputObjectType({
+  name: 'CreateTodoType',
+  fields: () => ({
+    title: {
+      type: GraphQLString
+    },
+    content: {
+      type: GraphQLString
+    }
+  })
+});
+
 const DeleteTodoType = new GraphQLObjectType({
   name: 'DeleteTodoType',
   fields: () => ({
@@ -35,4 +48,4 @@ const DeleteTodoType = new GraphQLObjectType({
   })
 });
 
-export { TodoType, DeleteTodoType };
+export { TodoType, DeleteTodoType, CreateTodoType };

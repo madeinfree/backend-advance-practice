@@ -8,7 +8,8 @@ import { Table, FormControl } from 'react-bootstrap';
 import { compose, withStateHandlers } from 'recompose';
 import { QueryRenderer } from 'react-relay';
 
-import TodoRemoveButton from './todoRemoveButton.react';
+import TodoRemoveButton from '../../components/todo/todoRemoveButton.react';
+import TodoCompletedButton from '../../components/todo/todoCompletedButton.react';
 
 const queryResultNotNull = R.compose(
   R.not,
@@ -56,6 +57,10 @@ const SingleTableBody = (
             { getCompleted(getQueryResultTodo(queryResult)) }
           </td>
           <td>
+            <TodoCompletedButton
+              completed={ getCompleted(
+                getQueryResultTodo(queryResult)
+              ) } />
             <TodoRemoveButton
               environment={ environment }
               handleClearSearchText={ handleClearSearchText }
@@ -118,17 +123,14 @@ const Todo = ({
                     { getCompleted(todo) }
                   </td>
                   <td>
+                    <TodoCompletedButton
+                      completed={ getCompleted(todo) } />
                     <TodoRemoveButton
                       environment={ environment }
                       handleClearSearchText={
                         clearSearchText
                       }
                       todo={ todo } />
-                    { R.ifElse(
-                      R.equals('進行中'),
-                      R.always('完成'),
-                      R.always('')
-                    )(getCompleted(todo)) }
                   </td>
                 </tr>
               </tbody>
